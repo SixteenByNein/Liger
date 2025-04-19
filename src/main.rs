@@ -1,4 +1,4 @@
-use std::env::{current_dir, set_current_dir};
+use std::env::current_dir;
 
 mod initiate;
 mod populate;
