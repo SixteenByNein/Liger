@@ -16,7 +16,7 @@ THEY MUST BE NAMED EXACTLY AS WRITTEN.
 
 "final" is untouched by you. Here, your compiled files will appear.
 
-"layouts" is where you will put your pages (index.html etc.) as well as any images or stylesheets. This will look like any other HTML file structure.
+"layout" is where you will put your pages (index.html etc.) as well as any images or stylesheets. This will look like any other HTML file structure.
 
 "parts" contains the building blocks that you want to frequently use such as a common header or footer.
 
