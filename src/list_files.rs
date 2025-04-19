@@ -5,7 +5,7 @@ use std::{fs::{read_dir, DirEntry}, path::Path};
 
 
 
-pub fn list_files(current_dir: String) -> Vec<DirEntry>
+pub fn list_files(current_dir: &str) -> Vec<DirEntry>
 {
 
 
@@ -28,7 +28,7 @@ pub fn list_files(current_dir: String) -> Vec<DirEntry>
 
 }
 
-pub fn list_folders(current_dir: &String) -> Vec<DirEntry>
+pub fn list_folders(current_dir: &str) -> Vec<DirEntry>
 {
 
     let mut paths: Vec<DirEntry> = vec![];
@@ -50,7 +50,7 @@ pub fn list_folders(current_dir: &String) -> Vec<DirEntry>
 
 }
 
-pub fn get_tree(current_dir: &String) -> Vec<String>
+pub fn get_tree(current_dir: &str) -> Vec<String>
 {
 
 
@@ -102,7 +102,7 @@ pub fn get_tree(current_dir: &String) -> Vec<String>
 
         }
         
-        live = gen_buffer.len() > 0;
+        live = !gen_buffer.is_empty();
 
     }
     
@@ -117,10 +117,10 @@ pub fn get_tree(current_dir: &String) -> Vec<String>
 
 
 
-pub fn truncate(dir: DirEntry, current_dir: &String) -> String
+pub fn truncate(dir: DirEntry, current_dir: &str) -> String
 {
 
-    let root_components = Path::new(&current_dir).components();
+    let root_components = Path::new(current_dir).components();
 
     let mut root_length= 0;
 
@@ -128,7 +128,7 @@ pub fn truncate(dir: DirEntry, current_dir: &String) -> String
     for _item in root_components
     {
 
-        root_length = root_length + 1;
+        root_length += 1;
 
     }
 
@@ -140,7 +140,7 @@ pub fn truncate(dir: DirEntry, current_dir: &String) -> String
     for comp in dir.path().components()
     {
 
-        loop_count = loop_count + 1;
+        loop_count += 1;
 
         if loop_count > root_length
         {
@@ -161,7 +161,7 @@ pub fn truncate(dir: DirEntry, current_dir: &String) -> String
 
 
 
-pub fn enstring(dirs: Vec<DirEntry>, current_dir: &String) -> Vec<String>
+pub fn enstring(dirs: Vec<DirEntry>, current_dir: &str) -> Vec<String>
 {
 
     let mut enstringed: Vec<String> = [].to_vec();

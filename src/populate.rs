@@ -12,21 +12,21 @@ use crate::text_gen::text_gen;
 
 
 
-pub fn populate(current_dir: &String)
+pub fn populate(current_dir: &str)
 {
 
 
-    clear_folder(current_dir.to_string() + "/final");
+    clear_folder(&(current_dir.to_string() + "/final"));
 
 
-    let tree = get_tree(&(current_dir.clone().to_string() + "/layout"));
+    let tree = get_tree(&(current_dir.to_string() + "/layout"));
 
 
 
-    for item in tree.clone()
+    for item in tree
     {
 
-        populate_dir(item, current_dir.clone());
+        populate_dir(item, current_dir.to_string());
 
     }
 
@@ -53,7 +53,7 @@ fn populate_dir(dir: String, root: String)
     }
 
 
-    let files = enstring(list_files(root_borrowed.to_string() + "/layout" + &dir), &(root_borrowed.to_string() + "/layout"));
+    let files = enstring(list_files(&(root_borrowed.to_string() + "/layout" + &dir)), &(root_borrowed.to_string() + "/layout"));
     
     for item in files
     {
@@ -67,7 +67,7 @@ fn populate_dir(dir: String, root: String)
             let mut target_file = File::create(root_borrowed.to_string() + "/final" + &item).unwrap();
             
 
-            let _ = target_file.write(text_gen(origin, root_borrowed.to_string()).as_bytes());
+            let _ = target_file.write(text_gen(&origin, root_borrowed.to_string()).as_bytes());
 
 
         } else {

@@ -2,11 +2,11 @@ use std::fs::{remove_dir_all, remove_file};
 
 use crate::list_files;
 
-pub fn clear_folder(dir_path: String)
+pub fn clear_folder(dir_path: &str)
 {
 
-    let dirs = list_files::list_folders(&dir_path);
-    let files = list_files::list_files(dir_path.clone());
+    let dirs = list_files::list_folders(dir_path);
+    let files = list_files::list_files(dir_path);
 
     for item in dirs
     {

@@ -4,11 +4,9 @@ use std::fs;
 
 
 
-pub fn text_gen(current_dir: String, root: String) -> String{
+pub fn text_gen(current_dir: &str, root: String) -> String {
 
-
-
-    let text_in = fs::read_to_string(current_dir.to_owned()).unwrap();
+    let text_in = fs::read_to_string(current_dir).unwrap();
 
 
     let mut text_out: String = "".to_string();
@@ -16,7 +14,7 @@ pub fn text_gen(current_dir: String, root: String) -> String{
     for item in slice_stream(text_in)
     {
 
-        let tag = read_tag(item, root.clone());
+        let tag = read_tag(&item, root.clone());
 
         let tag_stream = tag.chars();
 
@@ -79,24 +77,24 @@ fn slice_stream(stream: String) -> Vec<String>
 
 }
 
-fn read_tag(tag: String, root: String) -> String
+fn read_tag(tag: &str, root: String) -> String
 {
 
-    if is_tag(tag.clone()) && split_tag(tag.clone())[0] == "ligerplace"
+    if is_tag(tag) && split_tag(tag)[0] == "ligerplace"
     {
 
-        return fetch_text(split_tag(tag)[1].to_string(), root);
+        return fetch_text(&split_tag(tag)[1], root);
 
     }else {
 
-        return tag;
+        return tag.to_owned();
 
     }
 
 }
 
 
-fn is_tag(tag: String) -> bool
+fn is_tag(tag: &str) -> bool
 {
 
     let mut char_stream: Vec<char> = [].to_vec();
@@ -109,7 +107,7 @@ fn is_tag(tag: String) -> bool
     };
 
 
-    if char_stream.len() > 0{
+    if !char_stream.is_empty() {
 
     return char_stream[0] == '<';
 
@@ -122,7 +120,7 @@ fn is_tag(tag: String) -> bool
 }
 
 
-fn split_tag(tag: String) -> [String; 2]
+fn split_tag(tag: &str) -> [String; 2]
 {
 
     let tag_descaled = descale(tag);
@@ -155,14 +153,14 @@ fn split_tag(tag: String) -> [String; 2]
 }
 
 
-fn fetch_text(path: String, root: String) -> String
+fn fetch_text(path: &str, root: String) -> String
 {
 
-    return fs::read_to_string(root + "/parts" + &path).unwrap()
+    return fs::read_to_string(root + "/parts" + path).unwrap()
 
 }
 
-fn descale(tag: String) -> String
+fn descale(tag: &str) -> String
 {
 
     let mut complete: String = "".to_string();
