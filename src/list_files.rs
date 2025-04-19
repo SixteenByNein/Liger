@@ -102,7 +102,7 @@ pub fn get_tree(current_dir: &String) -> Vec<String>
 
         }
         
-        live = gen_buffer.len() > 0;
+        live = !gen_buffer.is_empty();
 
     }
     

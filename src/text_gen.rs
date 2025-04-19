@@ -109,7 +109,7 @@ fn is_tag(tag: String) -> bool
     };
 
 
-    if char_stream.len() > 0{
+    if !char_stream.is_empty() {
 
     return char_stream[0] == '<';
 
