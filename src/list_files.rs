@@ -128,7 +128,7 @@ pub fn truncate(dir: DirEntry, current_dir: &String) -> String
     for _item in root_components
     {
 
-        root_length = root_length + 1;
+        root_length += 1;
 
     }
 
@@ -140,7 +140,7 @@ pub fn truncate(dir: DirEntry, current_dir: &String) -> String
     for comp in dir.path().components()
     {
 
-        loop_count = loop_count + 1;
+        loop_count += 1;
 
         if loop_count > root_length
         {
