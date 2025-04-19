@@ -5,7 +5,7 @@ use std::{fs::{read_dir, DirEntry}, path::Path};
 
 
 
-pub fn list_files(current_dir: String) -> Vec<DirEntry>
+pub fn list_files(current_dir: &str) -> Vec<DirEntry>
 {
 
 
@@ -28,7 +28,7 @@ pub fn list_files(current_dir: String) -> Vec<DirEntry>
 
 }
 
-pub fn list_folders(current_dir: &String) -> Vec<DirEntry>
+pub fn list_folders(current_dir: &str) -> Vec<DirEntry>
 {
 
     let mut paths: Vec<DirEntry> = vec![];
@@ -50,7 +50,7 @@ pub fn list_folders(current_dir: &String) -> Vec<DirEntry>
 
 }
 
-pub fn get_tree(current_dir: &String) -> Vec<String>
+pub fn get_tree(current_dir: &str) -> Vec<String>
 {
 
 
@@ -117,10 +117,10 @@ pub fn get_tree(current_dir: &String) -> Vec<String>
 
 
 
-pub fn truncate(dir: DirEntry, current_dir: &String) -> String
+pub fn truncate(dir: DirEntry, current_dir: &str) -> String
 {
 
-    let root_components = Path::new(&current_dir).components();
+    let root_components = Path::new(current_dir).components();
 
     let mut root_length= 0;
 
@@ -161,7 +161,7 @@ pub fn truncate(dir: DirEntry, current_dir: &String) -> String
 
 
 
-pub fn enstring(dirs: Vec<DirEntry>, current_dir: &String) -> Vec<String>
+pub fn enstring(dirs: Vec<DirEntry>, current_dir: &str) -> Vec<String>
 {
 
     let mut enstringed: Vec<String> = [].to_vec();
