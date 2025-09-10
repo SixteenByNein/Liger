@@ -7,18 +7,27 @@
 
 ## Folder structure:
 
-Your root folder should contain three directories (at some point I'd like to figure our how to make it so that you can just type "liger initialize" and it makes them for you).
+to initialize your directory, run "liger init"
+
+Your root folder should contain three directories:
+
 - final
-- layouts
+- layout
 - parts
 
-THEY MUST BE NAMED EXACTLY AS WRITTEN.
+as well as a "template.html" and an "index.html."
 
-"final" is untouched by you. Here, your compiled files will appear.
+"final" and "index.html are untouched by you. Here, your compiled files will appear.
 
 "layout" is where you will put your pages (index.html etc.) as well as any images or stylesheets. This will look like any other HTML file structure.
 
+"template.html" will be compiled into the "index.html."
+
 "parts" contains the building blocks that you want to frequently use such as a common header or footer.
+
+Further folders can be added, these will neither be edited, nor compiled from. As there will be no deleting nor copying from these directories, they are a great place to put any images or other large files that do not need to be duplicated.
+
+This root directory _is the root directory of your site_ when referencing a file in relation to the root such as "/style.css," it will be in relatiion to this root directory.
 
 ## File structure:
 

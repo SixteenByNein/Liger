@@ -1,6 +1,6 @@
 use std::io::prelude::*;
 
-use std::fs::{copy, create_dir, File};
+use std::fs::{copy, create_dir, remove_file, File};
 
 use crate::clear_folder::clear_folder;
 use crate::list_files::{enstring, get_tree, list_files, list_folders};
@@ -19,7 +19,17 @@ pub fn populate(current_dir: &str)
     clear_folder(&(current_dir.to_string() + "/final"));
 
 
+    let _ = remove_file(&(current_dir.to_string() + "/index.html"));
+
+    let mut targeted_index = File::create(current_dir.to_owned() + "/index.html").unwrap();
+            
+
+    let _ = targeted_index.write(text_gen(&(current_dir.to_owned() + "/index.html"), current_dir.to_owned() + "/template.html").as_bytes());
+
+
     let tree = get_tree(&(current_dir.to_string() + "/layout"));
+
+
 
 
 

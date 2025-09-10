@@ -1,4 +1,5 @@
 use std::env::current_dir;
+use std::env;
 
 mod initiate;
 mod populate;
@@ -12,20 +13,29 @@ fn main() {
     //let _ = set_current_dir("/home/gunnar/Desktop/LigerTest");
 
 
-    if true
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() < 2
     {
 
     let _populated = populate::populate(&(current_dir().as_ref().unwrap().to_str().unwrap().to_string()));
 
-    };
+    }
+
+    else {
+        
 
 
-    if false
+    match args[1].as_str()
     {
 
-    initialize(current_dir().unwrap().to_str().unwrap());
+    "init" => initialize(current_dir().unwrap().to_str().unwrap()),
 
-    };
+    _ => println!("Unrecognized argument"),
+
+    }
+    }
+    ;
 
 
 }
