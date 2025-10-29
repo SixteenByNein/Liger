@@ -1,50 +1,53 @@
-use std::env::current_dir;
+use std::env::{current_dir};
 use std::env;
 
+use std::path::Path;
+
+use crate::clock::main as clock;
+
+mod text_effects;
+mod clock;
 mod initiate;
 mod populate;
 mod list_files;
 mod text_gen;
-mod clear_folder;
+mod command;
+mod parse_lgr;
 
 
 fn main() {
 
-    //let _ = set_current_dir("/home/gunnar/Desktop/LigerTest");
+
+   let _start = clock();
+
+   print!("{}", text_effects::frame(&clock(), 2, 0, 0));
 
 
-    let args: Vec<String> = env::args().collect();
-
-    if args.len() < 2
-    {
-
-    let _populated = populate::populate(&(current_dir().as_ref().unwrap().to_str().unwrap().to_string()));
-
-    }
-
-    else {
-        
+   // For testing purposes only:
+   let test_dir = env::set_current_dir(Path::new("/home/gunnar/Desktop/ligerTest"));
+   match test_dir {
+       Ok(_) => println!("Changed directory successfully."),
+       Err(e) => println!("Failed to change directory: {}", e)};
+   // End testing purposes only:
 
 
-    match args[1].as_str()
-    {
 
-    "init" => initialize(current_dir().unwrap().to_str().unwrap()),
+   
+   println!("Compiling {}", current_dir().unwrap().to_str().unwrap());
 
-    _ => println!("Unrecognized argument"),
-
-    }
-    }
-    ;
+    let _populated = populate::populate(current_dir().unwrap());
+    
 
 
-}
 
-fn initialize(file_path: &str)
-{
 
-    initiate::init(file_path);
+
+
+
+    print!("{}", text_effects::frame(&"COMPILATION COMPLETE".to_string(), 1, 2, 0));
 
 }
+
+
 
 
