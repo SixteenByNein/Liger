@@ -1,50 +1,76 @@
-use std::env::current_dir;
+use std::env::{current_dir};
 use std::env;
 
+use std::path::Path;
+
+use crate::clock::main as clock;
+
+mod text_effects;
+mod clock;
 mod initiate;
 mod populate;
 mod list_files;
-mod text_gen;
-mod clear_folder;
+mod command;
+mod parse_lgr;
+
+use std::io;
 
 
 fn main() {
 
-    //let _ = set_current_dir("/home/gunnar/Desktop/LigerTest");
 
+    let _start = clock();
 
-    let args: Vec<String> = env::args().collect();
+    print!("{}", text_effects::frame(&clock(), 2, 0, 0));
 
-    if args.len() < 2
-    {
+    let args: Vec<String> = env::args().collect(); 
 
-    let _populated = populate::populate(&(current_dir().as_ref().unwrap().to_str().unwrap().to_string()));
+    if args.len() > 1{
+
+    match args[1].as_str() {
+
+    "remote" =>{
+
+        println!("What directory should I compile for you? /n");
+
+        let mut remote_dir = String::new();
+
+        let stdin = io::stdin();
+
+        stdin.read_line(&mut remote_dir);
+
+        let test_dir = env::set_current_dir(Path::new(&remote_dir));
+        match test_dir {
+        Ok(_) => println!("Changed directory successfully."),
+        Err(e) => println!("Failed to change directory: {}", e)};
+    }
+
+    _ => println!("Argument '{}' not recognized.",args[1])
+       
+   }
 
     }
 
-    else {
-        
 
 
-    match args[1].as_str()
-    {
 
-    "init" => initialize(current_dir().unwrap().to_str().unwrap()),
 
-    _ => println!("Unrecognized argument"),
+   
+   println!("Compiling {}", current_dir().unwrap().to_str().unwrap());
 
-    }
-    }
-    ;
+    let _populated = populate::populate(current_dir().unwrap());
+    
 
+
+
+
+
+
+
+    print!("{}", text_effects::frame(&"COMPILATION COMPLETE".to_string(), 1, 2, 0));
 
 }
 
-fn initialize(file_path: &str)
-{
 
-    initiate::init(file_path);
-
-}
 
 

@@ -1,5 +1,6 @@
 use std::fs::{self, File};
 
+#[allow(dead_code)]
 pub fn init(_file_path: &str) -> bool
 {
 
