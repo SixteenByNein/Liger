@@ -26,9 +26,9 @@ I will say: the program feels a lot cleaner compared to what it was before. Did 
 This project is the first one that I've worked on since Microsoft added Copilot to VS Code and I have to say, I'm not a fan. It's making me almost want to switch to Vim. I did install Neovim but I wasn't ready to learn a brand new program today. Maybe tomorrow.
 
 > TO DO:
->- Write logic to check if the target file already exists and either create a new one or clear the old one.
+>- ~~Write logic to check if the target file already exists and either create a new one or clear the old one.~~
 >- Make sure the _external_ tag can see the referenced file.
->- Write main document compilation function.
+>- ~~Write main document compilation function.~~
 >- Write dictionary of tags/tutorial.
 
 

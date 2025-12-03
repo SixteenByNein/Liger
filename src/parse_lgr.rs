@@ -1,4 +1,4 @@
-use std::{fs, path::PathBuf};
+use std::{fs::{self, File}, path::PathBuf, env::current_dir};
 
 use crate::command::Command;
 
@@ -9,9 +9,11 @@ use crate::command::Command;
   pub fn parse(path: PathBuf)
   {
 
-    let file_text = fs::read_to_string(path).expect("Failed to read file");
+    let file_text = fs::read_to_string(&path).expect("Failed to read file");
     let commands = get_commands(&file_text);
-    run_commands(commands);
+    run_commands(commands, path.parent().unwrap().to_path_buf());
+
+    println!("Local root for this file: {}", path.parent().unwrap().to_str().unwrap());
     
 
   }
@@ -21,10 +23,12 @@ use crate::command::Command;
 
 
 
-  fn run_commands(commands: Vec<Command>)
+  fn run_commands(commands: Vec<Command>, local_root: PathBuf)
   {
 
-    let target: PathBuf = PathBuf::new();
+    let mut target: PathBuf = PathBuf::new();
+
+    let mut contents = String::new();
 
     for i in commands
     {
@@ -33,19 +37,35 @@ use crate::command::Command;
       {
         "to" => {
 
-          println!("Generating HTML in: {}", i.return_args());
+
+            let absolute_path = absolute_path(&i.return_args(), &local_root);
+
+
+            println!("Generating HTML in: {}", absolute_path.to_string());
+
+            let _file = File::create(&absolute_path);
+
+            target = PathBuf::from(absolute_path);
+
 
         }
 
         "external" => {
 
-          // Placeholder for external command handling
+          let abs_path: String = absolute_path(&i.return_args(), &local_root);
+
+          let external_text= fs::read_to_string(abs_path).expect("Failed to read external file");
+
+          println!("Fetching external text from: {}", i.return_args().trim());
+
+          contents.push_str(&external_text);
+          
 
         }
 
         "html" => {
 
-          // Placeholder for HTML generation command handling
+          contents.push_str(&i.return_args());
 
         }
 
@@ -58,6 +78,9 @@ use crate::command::Command;
       }
 
     }
+
+
+    fs::write(target, contents).expect("Failed to write to file");
 
   }
 
@@ -131,3 +154,34 @@ use crate::command::Command;
     return commands;
 
   }
+
+  
+
+  fn absolute_path(path: &str, local_root: &PathBuf) -> String
+    {
+
+      let trimmed = path.trim();
+  
+      let mut absolute_path = PathBuf::new();
+  
+      if trimmed.starts_with("/")
+      {
+  
+        absolute_path.push(current_dir().unwrap());
+        absolute_path.push(&trimmed[1..]);
+
+        println!("{} is an absolute path.", trimmed);
+  
+      }
+      else{
+  
+        absolute_path.push(local_root);
+        absolute_path.push(trimmed);
+
+        println!("{} is not an absolute path.", trimmed);
+  
+      }
+  
+      return absolute_path.to_str().unwrap().to_string();
+  
+    }

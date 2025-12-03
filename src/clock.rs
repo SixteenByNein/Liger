@@ -15,7 +15,7 @@ fn to_clock_time(secs: u64) -> String
 
     let minutes = secs / 60;
     let hours = minutes / 60;
-    let days = hours / 24;
+    let _days = hours / 24;
 
     return format!("{}:{}:{}", hours % 24, minutes % 60, secs % 60);
 }

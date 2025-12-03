@@ -48,7 +48,7 @@ pub fn frame(text: &str, padding: u32, style: u8, corners: u8) -> String
 
     }
 
-    for i in 0..padding
+    for _i in 0..padding
     {
 
         match style
@@ -75,7 +75,7 @@ pub fn frame(text: &str, padding: u32, style: u8, corners: u8) -> String
     }
 
 
-    for i in 0..padding
+    for _i in 0..padding
     {
 
         match style
@@ -123,6 +123,8 @@ pub fn frame(text: &str, padding: u32, style: u8, corners: u8) -> String
 
 
 
+
+#[allow(dead_code)]
 pub fn logo () -> String
 {
 
@@ -171,18 +173,6 @@ pub fn logo () -> String
                                ██████████████ █████                                 
                                   ████████████████                                  
                                      ███████████                                    
-                                                                                    
-                                                                                    
-                                                                                    
-                                                                                    
-                                                                                    
-
-
-
-
-
-
-
 
     ".to_string()
 
